@@ -28,8 +28,7 @@ export default function TextForm(props) {
     }
 
     const copyToClipboard = () =>{
-        var text = document.getElementById("myProject");
-        navigator.clipboard.writeText(text.value);
+        navigator.clipboard.writeText(text);
     }
 
     const handleExtraSpaces = () =>{
@@ -50,15 +49,15 @@ export default function TextForm(props) {
         <label for="myProject" className="form-label">{props.title}</label>
         <textarea className="form-control" id="myProject" value={text} onChange={handleonChange} rows="10" />
         </div>
-        <button className="btn btn-primary mx-2" onClick={handleUppercase}>Convert to Uppercase</button>
-        <button className="btn btn-primary mx-2" onClick={handlelowercase}>Convert to lowercase</button>
-        <button className="btn btn-primary mx-2" onClick={clearText}>Clear Text</button>
-        <button className="btn btn-primary mx-2" onClick={copyToClipboard}>Copy Text</button>
-        <button className="btn btn-primary mx-2" onClick={handleExtraSpaces}>Remove white space</button>
+        <button disabled={text.length===0} className="btn btn-primary mx-2 my-1" onClick={handleUppercase}>Convert to Uppercase</button>
+        <button disabled={text.length===0} className="btn btn-primary mx-2 my-1" onClick={handlelowercase}>Convert to lowercase</button>
+        <button disabled={text.length===0} className="btn btn-primary mx-2 my-1" onClick={clearText}>Clear Text</button>
+        <button disabled={text.length===0} className="btn btn-primary mx-2 my-1" onClick={copyToClipboard}>Copy Text</button>
+        <button disabled={text.length===0} className="btn btn-primary mx-2 my-1" onClick={handleExtraSpaces}>Remove white space</button>
     </div>
     <div className="container my-3">
         <h2>Your Text Summary</h2>
-        <p>You typed {text.split(" ").length} Words and {text.length} Characters</p>
+        <p>You typed {text.split(/\s+/).filter((element)=>{return element.length!==0}).length} Words and {text.length} Characters</p>
         <h3>Preview Of Your Text</h3>
         <p>{text.length>0?text:"Enter Something to see preview"}</p>
     </div>
